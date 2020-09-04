@@ -21,6 +21,7 @@ func init() {
 			if err != nil {
 				return nil, err
 			}
+			c.Do("auth", "fuck123")
 			c.Do("SELECT", 0)
 			return c, nil
 		},
@@ -29,6 +30,11 @@ func init() {
 
 func main() {
 	conn := RedisClient.Get()
-	fmt.Println(conn)
 	defer conn.Close()
+	_, _ = conn.Do("set", "key", "hello")
+	val, err := conn.Do("get", "key")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Printf("%s", val)
 }

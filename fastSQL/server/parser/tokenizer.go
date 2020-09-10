@@ -6,6 +6,9 @@ import (
 )
 
 func Tokenizer(sql string) []string {
+	if !strings.HasSuffix(sql, ";") {
+		sql = sql + ";"
+	}
 	list := make([]string, 0, 10)
 	var current int
 	var c rune

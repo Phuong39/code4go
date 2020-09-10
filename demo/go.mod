@@ -7,9 +7,9 @@ require (
 	github.com/garyburd/redigo v1.6.2
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/go-sql-driver/mysql v1.5.0
+	github.com/jinzhu/gorm v1.9.16
 	github.com/panjf2000/gnet v1.2.10
 	github.com/shirou/gopsutil v2.20.7+incompatible
 	github.com/stretchr/testify v1.6.1 // indirect
-	github.com/widaT/poller v0.0.0-20200629024424-f8833c2f0dfb
-	golang.org/x/sys v0.0.0-20200814200057-3d37ad5750ed
+	golang.org/x/sys v0.0.0-20200814200057-3d37ad5750ed // indirect
 )

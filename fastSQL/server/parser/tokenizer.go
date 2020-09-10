@@ -9,7 +9,7 @@ func Tokenizer(sql string) []string {
 	if !strings.HasSuffix(sql, ";") {
 		sql = sql + ";"
 	}
-	list := make([]string, 0, 10)
+	list := make([]string, 0, 50)
 	var current int
 	var c rune
 	var buf bytes.Buffer

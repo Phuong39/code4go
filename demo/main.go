@@ -5,14 +5,26 @@
  */
 package main
 
-func main() {
-	//channel.CloseExit()
-	//
-	//concurrent.SetAndGetProc()
-	//
-	//concurrent.LocalStorage()
-	//
-	//concurrent.GoExit()
+import (
+	"fmt"
+	"reflect"
+	"unsafe"
+)
 
-	// memory.ShowMemoryInfo()
+type Student struct {
+	Name string
+}
+
+func main() {
+	s := &Student{}
+	of := reflect.TypeOf(s)
+	fmt.Println(of)
+	fmt.Println(of.Name())
+	fmt.Println(of.Kind())
+	fmt.Println(of.Elem())
+
+	e := of.Elem()
+	fmt.Println(e.Size())
+	fmt.Println(of.Size())
+	fmt.Println(unsafe.Sizeof(*s))
 }

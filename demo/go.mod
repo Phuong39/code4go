@@ -3,6 +3,7 @@ module demo
 go 1.14
 
 require (
+	github.com/Shopify/sarama v1.27.0
 	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
 	github.com/codegangsta/inject v0.0.0-20150114235600-33e0aa1cb7c0
 	github.com/garyburd/redigo v1.6.2

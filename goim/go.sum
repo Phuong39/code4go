@@ -30,7 +30,6 @@ github.com/gin-gonic/gin v1.3.0 h1:kCmZyPklC0gVdL728E6Aj20uYBJV93nj/TkwBTKhFbs=
 github.com/gin-gonic/gin v1.3.0/go.mod h1:7cKuhb5qV2ggCFctp2fJQ+ErvciLZrIeoOSOm6mUr7Y=
 github.com/gogo/protobuf v1.1.1 h1:72R+M5VuhED/KujmZVcIquuo8mBgX4oVda//DQb3PXo=
 github.com/gogo/protobuf v1.1.1/go.mod h1:r8qH/GZQm5c6nD/R0oafs1akxWv10x8SbQlK7atdtwQ=
-github.com/golang/appengine v1.1.0/go.mod h1:C7k13PpLjU5SHb7WgwfAwCmVFgi4cpy3kl2zlpoBck8=
 github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b h1:VKtxabqXZkF25pY9ekfRL6a582T4P37/31XEstQ5p58=
 github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b/go.mod h1:SBH7ygxi8pfUlaOkMMuAQtPIUF8ecWP5IEl/CR7VP2Q=
 github.com/golang/lint v0.0.0-20180702182130-06c8688daad7/go.mod h1:tluoj9z5200jBnyusfRPU2LqT6J+DAorxEvtC7LHB+E=
@@ -56,7 +55,6 @@ github.com/google/go-genproto v0.0.0-20180817151627-c66870c02cf8 h1:I9PuChzQA31g
 github.com/google/go-genproto v0.0.0-20180817151627-c66870c02cf8/go.mod h1:3Rcd9jSoLVkV/osPrt5CogLvLiarfI8U9/x78NwhuDU=
 github.com/google/uuid v1.0.0 h1:b4Gk+7WdP/d3HZH8EJsZpvV7EtDOgaZLtnaNGIu1adA=
 github.com/google/uuid v1.0.0/go.mod h1:TIyPZe4MgqvfeYDBFedMoGGpEw/LqOeaOT+nhxU+yHo=
-github.com/googleapis/google-cloud-go v0.26.0/go.mod h1:yJoOdPPE9UpqbamBhJvp7Ur6OUPPV4rUY3RnssPGNBA=
 github.com/gopherjs/gopherjs v0.0.0-20180424202546-8dffc02ea1cb h1:g0omhilXoAZ+6sFcF6puAzT+/MoKK3ZBQ9e7nVIRjrc=
 github.com/gopherjs/gopherjs v0.0.0-20180424202546-8dffc02ea1cb/go.mod h1:wJfORRmW1u3UXTncJ5qlYoELFm8eSnnEO6hX4iZ3EWY=
 github.com/grpc/grpc-go v1.16.0 h1:NoIxpYcu0On8pGfXH92qMzpvh+CupLSmOXbqWdjugpk=

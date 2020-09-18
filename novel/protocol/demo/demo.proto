@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+// 服务注册名，客户端通过这个名称访问服务
+package net.novel.api.user;
+
+option go_package = "pb_user";
+
+import "novel/protocol/common.proto";
+
+enum ErrorCode {
+    OK =0 ;// 成功
+    Error =1001; // 失败
+}
+
+service DemoService {
+    rpc SayHello(SayHelloReq) returns(SayHelloRsp);
+}
+
+message SayHelloReq{
+    string name=1;
+}
+
+message SayHelloRsp{
+    common.Result result = 1;
+}

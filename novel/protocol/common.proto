@@ -1,0 +1,51 @@
+syntax="proto3";
+
+package common;
+
+option go_package="common";
+
+// 系统保留错误码 0-999
+enum ERet {
+    kRetSuccess = 0;
+    kRetErrParameter = 1; // 参数错误
+    kRetErrCookie = 2; // cookie错误
+    kRetErrUnauthorized = 3; // 未授权
+    kRetErrUnknowUri = 4; // 服务器不支持的uri
+    kRetErrVersion = 5; // 不再支持该版本
+    kRetErrBusy = 6; // 服务器忙
+    accessTokenExpired = 7; // token过期，客户端可以通过refreshToken重新得到accessToken
+    refreshTokenExpired = 8; // refresh token过期，客户端需要退出登录界面
+    noResult = 9; // refresh token过期，客户端需要退出登录界面
+    touristTokenExpired = 10; // token过期，客户端可以通过refreshToken重新得到touristToken
+    kRetErrNotLogin = 100; // 用户未登陆
+    kRetErrSystem = 999; // 系统错误，尽量少用这个
+}
+
+message Result {
+    int64 err_code = 1;      // 每个协议自己定义, 0-999是系统保留
+    string err_msg = 2;      // 错误信息
+}
+
+message Header{
+    enum Meta{
+        NotUse = 0;
+        AppVersion = 1024;
+        OSType = 1025;     // 系统类型
+        OSVersion = 1026;  // 系统版本号
+        DeviceID = 1027;   // 设备ID
+        DeviceType = 1028; // 设备类型   小米/三星/华为
+        Uid = 1029;
+        RoomId = 1030;
+        ClientIPPort = 1031; //  客户端IP地址,格式   IP:Port
+    }
+    map<uint32, string> map_extend = 1;
+    string service_name = 2; // 服务名
+    uint64 seq_id = 3;        // sequences number, 建议用毫秒时间戳
+    uint32 uri = 4;          // 同一个服务下notify的uri唯一, 业务自己保证
+}
+
+// 业务主动push，通过http接口调用，roomid和uids放在url parameters
+message ServerPush {
+    Header header = 1;  // 消息头
+    string body = 2;    // 消息体
+}

@@ -120,6 +120,7 @@ func init() {
 }
 
 func main() {
+	// -pass fuck123456 -h 47.103.211.234 -save true -db novel
 	db2struct.Init(dbUser, dbPassword, dbHost, dbPort, dbDatabase)
 	if dbTable == "*" {
 		for _, v := range db2struct.GetAllTable() {

@@ -1,0 +1,45 @@
+courage是一门编译型语言，参照C语法设计，底层使用golang实现，支持文件IO、多线程、网络
+
+相比较于Java具有如下优势：
+    1.轻量级的运行、依赖、API；
+    2.语法简单灵活；
+    3.多线程设计基于golang并发协程；
+
+基本使用命令：
+    crgc -c 文件名   ---> 编译
+    crgc -r 文件名   ---> 运行
+    crgc -p 文件名   ---> 解析字节码文件
+
+源文件=xxx.lsm  字节码文件=xxx.class
+
+Hello World Demo：
+---------------------------
+void main()
+{
+    -- 这是注释
+    println("Hello World!!!");
+}
+---------------------------
+
+文件操作
+---------------------------
+import io
+
+void main()
+{
+    try
+    {
+        String text,int len=readFile("C:\\Users\\Admin\\Desktop\\hello.txt");
+        println("文件内容="+text);
+        println("文件长度="+len);
+    }catch(IOError e)
+    {
+        println("读取文件发送异常="+e.getMessage());
+    }
+}
+
+String,int readFile(String path) throws IOError
+{
+    File file=io.Open(path)
+    return io.ReadAll(file)
+}

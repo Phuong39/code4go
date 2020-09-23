@@ -20,7 +20,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-
+	defer consumer.Close()
 	for partition := range partitionList {
 		pc, err := consumer.ConsumePartition("hello", int32(partition), sarama.OffsetNewest)
 		if err != nil {
@@ -40,5 +40,4 @@ func main() {
 		}(pc)
 	}
 	wg.Wait()
-	consumer.Close()
 }

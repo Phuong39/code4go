@@ -14,7 +14,6 @@ func TestTokenizer(t *testing.T) {
 	for _, v := range list1 {
 		fmt.Println(v)
 	}
-
 	list2 := Tokenizer(sql2)
 	for _, v := range list2 {
 		fmt.Println(v)

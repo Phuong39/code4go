@@ -5,6 +5,10 @@ go 1.15
 require (
 	github.com/Shopify/sarama v1.27.0
 	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
+	github.com/casbin/casbin v1.9.1
+	github.com/casbin/casbin/v2 v2.12.0
+	github.com/casbin/mysql-adapter v0.0.0-20170721055345-c494d0c4c842
+	github.com/casbin/xorm-adapter/v2 v2.0.1
 	github.com/codegangsta/inject v0.0.0-20150114235600-33e0aa1cb7c0
 	github.com/coreos/bbolt v1.3.3 // indirect
 	github.com/coreos/etcd v3.3.21+incompatible
@@ -14,6 +18,7 @@ require (
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/dustin/go-humanize v1.0.0 // indirect
 	github.com/garyburd/redigo v1.6.2
+	github.com/gin-gonic/gin v1.6.3
 	github.com/go-ole/go-ole v1.2.4 // indirect
 	github.com/go-sql-driver/mysql v1.5.0
 	github.com/gogo/protobuf v1.3.1 // indirect
@@ -47,4 +52,5 @@ require (
 	google.golang.org/grpc v1.26.0 // indirect
 	honnef.co/go/tools v0.0.1-2020.1.4 // indirect
 	sigs.k8s.io/yaml v1.2.0 // indirect
+	xorm.io/xorm v1.0.5
 )

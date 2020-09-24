@@ -40,7 +40,9 @@ func (p *PriorityDeque) AddAll(c Collection) {
 
 func (p *PriorityDeque) RemoveAll(c Collection) {
 	p.ForEach(func(ele interface{}) {
-		p.Remove(ele)
+		if c.Contains(ele) {
+			p.Remove(ele)
+		}
 	})
 }
 

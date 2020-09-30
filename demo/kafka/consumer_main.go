@@ -26,18 +26,14 @@ func main() {
 		if err != nil {
 			panic(err)
 		}
-
-		defer pc.AsyncClose()
-
 		wg.Add(1)
-
 		go func(sarama.PartitionConsumer) {
 			defer wg.Done()
 			for msg := range pc.Messages() {
 				fmt.Printf("Partition:%d, Offset:%d, Key:%s, Value:%s\n", msg.Partition, msg.Offset, string(msg.Key), string(msg.Value))
 			}
-
 		}(pc)
+		// pc.AsyncClose()
 	}
 	wg.Wait()
 }

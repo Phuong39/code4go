@@ -1,11 +1,10 @@
 package main
 
 import (
-	"log"
-	"time"
-
 	"github.com/panjf2000/gnet"
 	"github.com/panjf2000/gnet/pool/goroutine"
+	"log"
+	"time"
 )
 
 type echoServer struct {

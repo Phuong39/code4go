@@ -13,7 +13,7 @@ int main()
 
     try
     {
-       String text,int len=readFile("C:\\Users\\Admin\\Desktop\\hello.txt");
+       String text,long len=readFile("C:\\Users\\Admin\\Desktop\\hello.txt");
        println("文件内容="+text);
        println("文件长度="+len);
     }catch(IOError e)
@@ -23,7 +23,7 @@ int main()
     return 0;
 }
 
-String,int readFile(String path) throws IOError
+String,long readFile(String path) throws IOError
 {
     File file=io.Open(path)
     return io.ReadAll(file)

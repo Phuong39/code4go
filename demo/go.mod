@@ -5,9 +5,7 @@ go 1.15
 require (
 	github.com/Shopify/sarama v1.27.0
 	github.com/StackExchange/wmi v0.0.0-20190523213315-cbe66965904d // indirect
-	github.com/casbin/casbin v1.9.1
 	github.com/casbin/casbin/v2 v2.12.0
-	github.com/casbin/mysql-adapter v0.0.0-20170721055345-c494d0c4c842
 	github.com/casbin/xorm-adapter/v2 v2.0.1
 	github.com/codegangsta/inject v0.0.0-20150114235600-33e0aa1cb7c0
 	github.com/coreos/bbolt v1.3.3 // indirect

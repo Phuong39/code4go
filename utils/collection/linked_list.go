@@ -281,7 +281,7 @@ func (l *LinkedList) RemoveAll(c Collection) {
 }
 
 func (l *LinkedList) ToArray() []interface{} {
-	data := make([]interface{}, 0)
+	data := make([]interface{}, 0, l.len)
 	l.ForEach(func(ele interface{}) {
 		data = append(data, ele)
 	})

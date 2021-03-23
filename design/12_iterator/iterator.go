@@ -55,6 +55,6 @@ func (i *NumbersIterator) Next() interface{} {
 func IteratorPrint(i Iterator) {
 	for i.First(); !i.IsDone(); {
 		c := i.Next()
-		fmt.Printf("%#v\n", c)
+		fmt.Printf("%#v \n", c)
 	}
 }

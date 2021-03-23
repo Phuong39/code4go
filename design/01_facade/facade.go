@@ -9,29 +9,30 @@ func NewAPI() API {
 	}
 }
 
-//API is facade interface of facade package
+// API 门面模式中对外提供的接口
 type API interface {
 	Test() string
 }
 
-//facade implement
+// apiImpl API实现
 type apiImpl struct {
 	a AModuleAPI
 	b BModuleAPI
 }
 
+// Test 此方法封装了TestA和TestB，对调用者屏蔽细节
 func (a *apiImpl) Test() string {
 	aRet := a.a.TestA()
 	bRet := a.b.TestB()
 	return fmt.Sprintf("%s\n%s", aRet, bRet)
 }
 
-//NewAModuleAPI return new AModuleAPI
+// NewAModuleAPI return new AModuleAPI
 func NewAModuleAPI() AModuleAPI {
 	return &aModuleImpl{}
 }
 
-//AModuleAPI ...
+// AModuleAPI ...
 type AModuleAPI interface {
 	TestA() string
 }
@@ -42,7 +43,7 @@ func (*aModuleImpl) TestA() string {
 	return "A module running"
 }
 
-//NewBModuleAPI return new BModuleAPI
+// NewBModuleAPI return new BModuleAPI
 func NewBModuleAPI() BModuleAPI {
 	return &bModuleImpl{}
 }

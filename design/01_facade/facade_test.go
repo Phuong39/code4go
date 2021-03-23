@@ -1,6 +1,8 @@
 package facade
 
-import "testing"
+import (
+	"testing"
+)
 
 var expect = "A module running\nB module running"
 

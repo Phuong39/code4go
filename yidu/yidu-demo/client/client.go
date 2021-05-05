@@ -3,7 +3,6 @@ package main
 import (
 	"context"
 	"fmt"
-
 	micro "github.com/micro/go-micro/v2"
 	proto "yidu-demo/protos"
 )

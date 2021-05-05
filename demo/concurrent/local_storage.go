@@ -1,14 +1,15 @@
-/*
-* 作者：刘时明
-* 时间：2020/8/16 0016-12:49
-* 作用：
- */
 package concurrent
 
 import (
 	"fmt"
 	"sync"
 )
+
+/*
+* 作者：刘时明
+* 时间：2020/8/16 0016-12:49
+* 作用：
+ */
 
 func LocalStorage() {
 	var wg sync.WaitGroup

@@ -1,8 +1,3 @@
-/*
-* 作者：刘时明
-* 时间：2020/8/16 0016-12:55
-* 作用：
- */
 package concurrent
 
 import (
@@ -10,6 +5,12 @@ import (
 	"runtime"
 	"time"
 )
+
+/*
+* 作者：刘时明
+* 时间：2020/8/16 0016-12:55
+* 作用：
+ */
 
 func GoExit() {
 	go func() {

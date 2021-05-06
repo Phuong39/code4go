@@ -2,23 +2,33 @@ package main
 
 import (
 	"github.com/micro/go-micro/v2"
+	"github.com/micro/go-micro/v2/registry"
+	"github.com/micro/go-micro/v2/registry/etcd"
+	"time"
+	_ "yidu-user/config"
 	"yidu-user/handler"
 	proto "yidu-user/protos"
 )
 
 func main() {
-	// Create a new service. Optionally include some options here.
+	// 创建新服务
 	service := micro.NewService(
+		micro.Version("latest"),
 		micro.Name("yidu-user"),
+		micro.Registry(etcd.NewRegistry(func(options *registry.Options) {
+			options.Addrs = []string{"127.0.0.1:2380"}
+		})),
+		micro.RegisterTTL(time.Second*30),
+		micro.RegisterInterval(time.Second*15),
 	)
 
-	// Init will parse the command line flags.
+	// 解析命令行等初始化
 	service.Init()
 
-	// Register handler
+	// 注册 handler
 	proto.RegisterUserHandler(service.Server(), new(handler.UserHandler))
 
-	// Run the server
+	// 启动服务
 	if err := service.Run(); err != nil {
 		panic(err)
 	}

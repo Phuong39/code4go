@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+option go_package = "./protos;user";
+
+// protoc --micro_out=. --go_out=. user.proto
+
+service User {
+  rpc Login(LoginReq) returns (LoginRsp) {}
+}
+
+message LoginReq {
+  string name = 1;
+}
+
+message LoginRsp {
+  string greeting = 2;
+}

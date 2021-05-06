@@ -9,9 +9,11 @@ service User {
 }
 
 message LoginReq {
-  string name = 1;
+  string username = 1;
+  string password = 2;
 }
 
 message LoginRsp {
-  string greeting = 2;
+  string errno = 1;
+  string err_msg = 2;
 }

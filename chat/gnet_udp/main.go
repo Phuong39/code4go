@@ -47,5 +47,6 @@ func main() {
 	defer p.Release()
 
 	echo := &echoServer{pool: p}
+	// WithMulticore(true) 代表设置多核处理
 	log.Fatal(gnet.Serve(echo, "udp://:8080", gnet.WithMulticore(true)))
 }

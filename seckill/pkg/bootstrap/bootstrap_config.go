@@ -4,7 +4,12 @@ import (
 	"fmt"
 	"github.com/spf13/viper"
 	"log"
+	"runtime"
 )
+
+func GetSystemName() string {
+	return runtime.GOOS
+}
 
 func init() {
 	viper.AutomaticEnv()
@@ -30,12 +35,18 @@ func init() {
 	}
 }
 func initBootstrapConfig() {
-	//设置读取的配置文件
+	// 设置读取的配置文件
 	viper.SetConfigName("bootstrap")
-	//添加读取的配置文件路径
+	// 添加读取的配置文件路径
 	viper.AddConfigPath("./")
-	//windows环境下为%GOPATH，linux环境下为$GOPATH
-	viper.AddConfigPath("$GOPATH/src/")
+	// windows环境下为%GOPATH，linux环境下为$GOPATH
+	switch GetSystemName() {
+	case "darwin":
+	case "windows":
+		viper.AddConfigPath("%GOPATH/src/")
+	case "linux":
+		viper.AddConfigPath("$GOPATH/src/")
+	}
 	//设置配置文件类型
 	viper.SetConfigType("yaml")
 }

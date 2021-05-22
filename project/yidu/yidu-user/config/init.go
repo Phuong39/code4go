@@ -5,14 +5,20 @@ import "github.com/BurntSushi/toml"
 var C Config
 
 type Config struct {
-	Title   string
-	DB      database `toml:"database"`
-	Servers map[string]server
+	Title    string
+	DB       database `toml:"database"`
+	Server   server
+	Registry registry
 }
 
 type server struct {
-	IP string
-	DC string
+	Name    string
+	Version string
+}
+
+type registry struct {
+	RegistryType string
+	Addrs        []string
 }
 
 type database struct {

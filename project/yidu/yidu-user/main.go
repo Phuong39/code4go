@@ -1,22 +1,23 @@
 package main
 
 import (
+	proto "commons/protos/user"
 	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/registry"
 	"github.com/micro/go-micro/v2/registry/etcd"
 	"time"
+	"yidu-user/config"
 	_ "yidu-user/config"
 	"yidu-user/handler"
-	proto "yidu-user/protos"
 )
 
 func main() {
 	// 创建新服务
 	service := micro.NewService(
-		micro.Version("latest"),
-		micro.Name("yidu-user"),
+		micro.Version(config.C.Server.Version),
+		micro.Name(config.C.Server.Name),
 		micro.Registry(etcd.NewRegistry(func(options *registry.Options) {
-			options.Addrs = []string{"127.0.0.1:2380"}
+			options.Addrs = config.C.Registry.Addrs
 		})),
 		micro.RegisterTTL(time.Second*30),
 		micro.RegisterInterval(time.Second*15),
@@ -26,7 +27,10 @@ func main() {
 	service.Init()
 
 	// 注册 handler
-	proto.RegisterUserHandler(service.Server(), new(handler.UserHandler))
+	err := proto.RegisterUserHandler(service.Server(), new(handler.UserHandler))
+	if err != nil {
+		panic(err)
+	}
 
 	// 启动服务
 	if err := service.Run(); err != nil {

@@ -17,17 +17,8 @@ stdout = true
 
 #web服务器配置
 [server]
-Address = ":8200"
-ServerRoot = "./public/resource"
-AccessLogEnabled = true
-ErrorLogEnabled = true
-PProfEnabled = true
-LogPath = "./data/log/server_log"
-SessionIdName = "sysSessionId"
-SessionMaxAge = "24h"
-DumpRouterMap = true
-NameToUriType = 3
-
+name = "user"
+version = "0.1.1"
 
 # Redis数据库配置
 [redis]
@@ -43,3 +34,7 @@ TokenDelimiter = "_"
 EncryptKey = "koi29a83idakguqjq29asd9asd8a7jhq"
 AuthFailMsg = "登录超时，请重新登录"
 MultiLogin = true
+
+[registry]
+registryType = "etcd"
+addrs = ["127.0.0.1:2380"]

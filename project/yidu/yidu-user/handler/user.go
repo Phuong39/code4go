@@ -1,7 +1,7 @@
 package handler
 
 import "context"
-import proto "yidu-user/protos"
+import proto "commons/protos/user"
 
 type UserHandler struct{}
 

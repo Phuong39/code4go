@@ -40,11 +40,11 @@
 
 [kafka]
     topic = "goim-push-topic"
-    brokers = ["119.29.117.244:9092"]
+    brokers = ["127.0.0.1:9092"]
 
 [redis]
     network = "tcp"
-    addr = "119.29.117.244:6379"
+    addr = "127.0.0.1:6379"
     active = 60000
     idle = 1024
     dialTimeout = "200ms"
@@ -52,4 +52,3 @@
     writeTimeout = "500ms"
     idleTimeout = "120s"
     expire = "30m"
-    auth = "fuck123"

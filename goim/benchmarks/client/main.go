@@ -59,10 +59,6 @@ var (
 )
 
 func main() {
-	if len(os.Args) == 1 {
-		os.Args = append(os.Args, "1", "10")
-	}
-
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	flag.Parse()
 	begin, err := strconv.Atoi(os.Args[1])
@@ -105,8 +101,7 @@ func client(mid int64) {
 }
 
 func startClient(key int64) {
-	temp := rand.Intn(120)
-	time.Sleep(time.Duration(temp) * time.Second)
+	time.Sleep(time.Duration(rand.Intn(120)) * time.Second)
 	atomic.AddInt64(&aliveCount, 1)
 	quit := make(chan bool, 1)
 	defer func() {

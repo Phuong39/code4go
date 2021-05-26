@@ -30,8 +30,6 @@ const (
 )
 
 func main() {
-	// start args
-	// -conf=goim/cmd/comet/comet-example.toml -region=sh -zone=sh001 -deploy.env=dev -weight=10 -addrs=127.0.0.1
 	flag.Parse()
 	if err := conf.Init(); err != nil {
 		panic(err)

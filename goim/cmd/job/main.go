@@ -19,9 +19,6 @@ var (
 )
 
 func main() {
-	// start args
-	// -conf=cmd/job/job-example.toml -region=sh -zone=sh001 -deploy.env=dev
-
 	flag.Parse()
 	if err := conf.Init(); err != nil {
 		panic(err)

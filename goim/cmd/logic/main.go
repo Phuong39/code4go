@@ -25,6 +25,7 @@ const (
 	appid = "goim.logic"
 )
 
+// -conf=cmd/logic/logic-example.toml -region=sh -zone=sh001 -deploy.env=dev -weight=10
 func main() {
 	flag.Parse()
 	if err := conf.Init(); err != nil {

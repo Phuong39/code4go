@@ -29,6 +29,7 @@ const (
 	appid = "goim.comet"
 )
 
+// -conf=goim/cmd/comet/comet-example.toml -region=sh -zone=sh001 -deploy.env=dev -weight=10 -addrs=127.0.0.1
 func main() {
 	flag.Parse()
 	if err := conf.Init(); err != nil {

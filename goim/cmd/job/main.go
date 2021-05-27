@@ -18,6 +18,7 @@ var (
 	ver = "2.0.0"
 )
 
+// -conf=cmd/job/job-example.toml -region=sh -zone=sh001 -deploy.env=dev
 func main() {
 	flag.Parse()
 	if err := conf.Init(); err != nil {

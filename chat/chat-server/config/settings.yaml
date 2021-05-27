@@ -1,0 +1,27 @@
+settings:
+  server:
+    profile: dev
+    protocolType: new
+    ip: 192.168.17.128
+    port: 8401
+
+  business:
+    KeepAlivePeriod: 150
+    EventCount: 16
+    timeout: 180
+    encryption: 1 # 1 crc
+    cycle: 1 # hour
+    onlinedatacleartime:
+      Hour: "0"
+      Minute: "1"
+      Second: "0"
+
+  logger:
+    path: ./logs/
+    level: debug
+
+  dispatch:
+    ip: 192.168.17.128
+    port: 8200
+    KeepAlivePeriod: 2  #在线服务向调度服务保活的周期，单位(秒)
+

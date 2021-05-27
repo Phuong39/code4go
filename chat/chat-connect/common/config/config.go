@@ -1,7 +1,7 @@
 package config
 
 import (
-	"chat_server/common/filesystem"
+	filesystem2 "commons/filesystem"
 	"fmt"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/viper"
@@ -12,7 +12,7 @@ import (
 )
 
 func Setup(path string) error {
-	if filesystem.FileExist(path) {
+	if filesystem2.FileExist(path) {
 		viper.SetConfigFile(path)
 		content, err := ioutil.ReadFile(path)
 		if err != nil {

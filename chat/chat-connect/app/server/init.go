@@ -1,17 +1,17 @@
 package server
 
 import (
-	"chat_server/common"
-	"chat_server/manager"
+	"commons"
+	"commons/manager"
 )
 
-func init() {
+func Register() {
 	registerOnLineServer()
 }
 
 // registerOnLineServer 注册网络服务
 func registerOnLineServer() {
-	manager.NetWorkRegister(func() common.NetWork {
+	manager.NetWorkRegister(func() commons.NetWork {
 		return newNetServer()
 	})
 }

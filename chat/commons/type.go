@@ -1,6 +1,7 @@
-package common
+package commons
 
 import (
+	message "commons/protos"
 	"github.com/panjf2000/gnet"
 	"sync"
 )
@@ -64,12 +65,4 @@ var EventLinePool = sync.Pool{
 }
 
 // EventLine 事件行
-type EventLine struct {
-	AppID     uint16      //项目ID
-	UnionID   uint16      //联盟ID
-	IPAddress uint32      //IP地址
-	Version   int64       //版本号
-	Hash      [16]byte    //版本号HASH
-	PCID      string      //用户ID
-	Extension interface{} //扩展信息提取
-}
+type EventLine message.Message

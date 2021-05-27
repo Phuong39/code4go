@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+// protoc -I=. --go_out=. message.proto
+option go_package = "./proto;message";
+
+enum RequestType {
+  Request = 0;
+  Response = 1;
+}
+
+enum MessageType {
+  // 心跳
+  Pong = 0;
+  // 握手
+  Handshake = 1;
+  // 上线
+  Online = 2;
+  // 下线
+  Offline = 3;
+  // 文件传输
+  File = 4;
+  // 群发消息
+  GroupMessage = 5;
+  // 私聊消息
+  PrivateMessage = 6;
+  // 系统广播
+  SystemBroadcast = 7;
+}
+
+message Message{
+  int64 id = 1;
+  int64 form_id = 2;
+  int64 to_id = 3;
+  int64 create_time = 4;
+  bytes body = 5;
+  int32 length = 6;
+}
+
+message MessageRequest{
+  RequestType type = 1;
+  MessageType cmd = 2;
+  oneof pack {
+    Message message = 3;
+    Reply response = 4;
+  }
+}
+
+message Reply{
+  int32 code = 1;
+  int64 msg_id = 2;
+  bytes body = 3;
+}

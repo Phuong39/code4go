@@ -1,19 +1,19 @@
 package manager
 
 import (
-	"chat_server/common"
-	"chat_server/common/config"
+	"commons"
+	"commons/config"
 	"context"
 	"github.com/panjf2000/gnet"
 	log "github.com/sirupsen/logrus"
 )
 
-var netWorks func() common.NetWork
+var netWorks func() commons.NetWork
 
-type UDPManager struct {
-	transform common.Transforms
+type NetworkManager struct {
+	transform commons.Transforms
 
-	con common.NetWork //连接
+	con commons.NetWork //连接
 
 	list chan *[]byte
 
@@ -21,12 +21,12 @@ type UDPManager struct {
 	cancel context.CancelFunc
 }
 
-func (obj *UDPManager) Setup() error {
+func (obj *NetworkManager) Setup() error {
 	obj.list = make(chan *[]byte, 1024)
 	obj.ctx, obj.cancel = context.WithCancel(context.Background())
 
 	tmp := netWorks()
-	if err := tmp.Setup(config.ServerConfig.Network, config.ServerConfig.IP, config.ServerConfig.Port, func(data *[]byte, con gnet.Conn) error {
+	if err := tmp.Setup(config.NetworkConfig.Network, config.NetworkConfig.IP, config.NetworkConfig.Port, func(data *[]byte, con gnet.Conn) error {
 		obj.list <- data
 		return nil
 	}); err != nil {
@@ -37,11 +37,11 @@ func (obj *UDPManager) Setup() error {
 	return nil
 }
 
-func (obj *UDPManager) SetSink(transform common.Transforms) {
+func (obj *NetworkManager) SetSink(transform commons.Transforms) {
 	obj.transform = transform
 }
 
-func (obj *UDPManager) Run() {
+func (obj *NetworkManager) Run() {
 	// 处理信息接口 可以开n个协程处理n个连接
 The:
 	for {
@@ -58,10 +58,10 @@ The:
 	obj.transform.Stop()
 }
 
-func (obj *UDPManager) Stop() {
+func (obj *NetworkManager) Stop() {
 	obj.cancel()
 }
 
-func (obj *UDPManager) Uninit() {
+func (obj *NetworkManager) UnInit() {
 	obj.con.Stop()
 }

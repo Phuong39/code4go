@@ -1,13 +1,10 @@
 package manager
 
 import (
-	"chat_server/common"
-	"chat_server/common/config"
-	"chat_server/common/crontab"
+	"commons"
 	"context"
 	"fmt"
 	log "github.com/sirupsen/logrus"
-	"github.com/spf13/cast"
 	"hash/crc32"
 	"sort"
 	"sync"
@@ -21,33 +18,35 @@ const (
 )
 
 type createStruct struct {
-	create func() common.EventHandler //创建函数
-	sortId int                        //创建序号
+	create func() commons.EventHandler //创建函数
+	sortId int                         //创建序号
 }
 
 var creater []createStruct
 
+var EventCount uint
+
 type EventManager struct {
-	sink      common.Sink
-	chans     []chan *common.EventLine
+	sink      commons.Sink
+	chans     []chan *commons.EventLine
 	eventChan []chan Event
-	handler   [][]common.EventHandler
+	handler   [][]commons.EventHandler
 	group     sync.WaitGroup
 	ctx       context.Context
 	cancel    context.CancelFunc
 }
 
-func (obj *EventManager) SetSink(sink common.Sink) {
+func (obj *EventManager) SetSink(sink commons.Sink) {
 	obj.sink = sink
 }
 
-func (obj *EventManager) Index(line *common.EventLine) int {
+func (obj *EventManager) Index(line *commons.EventLine) int {
 	data := fmt.Sprintf("%v-%v", line.AppID, line.PCID)
 	idx := crc32.ChecksumIEEE([]byte(data))
 	return int(idx % uint32(len(obj.chans))) //防止uint32 >> int出现负值
 }
 
-func (obj *EventManager) PushLine(line *common.EventLine) error {
+func (obj *EventManager) PushLine(line *commons.EventLine) error {
 	idx := obj.Index(line)
 	obj.chans[idx] <- line
 	return nil
@@ -55,18 +54,18 @@ func (obj *EventManager) PushLine(line *common.EventLine) error {
 
 func (obj *EventManager) Setup() error {
 	obj.ctx, obj.cancel = context.WithCancel(context.Background())
-	var count = config.BusinessConfig.EventCount
-	obj.chans = make([]chan *common.EventLine, count)
+	var count = EventCount
+	obj.chans = make([]chan *commons.EventLine, count)
 	obj.eventChan = make([]chan Event, count)
 	for i := 0; i < int(count); i++ {
-		obj.chans[i] = make(chan *common.EventLine, 32)
+		obj.chans[i] = make(chan *commons.EventLine, 32)
 		obj.eventChan[i] = make(chan Event, 32)
 	}
 
 	//排序
 	sort.Slice(creater, func(i, j int) bool { return creater[i].sortId < creater[j].sortId })
 	for count > 0 {
-		var tmp []common.EventHandler
+		var tmp []commons.EventHandler
 		for _, f := range creater {
 			tmp = append(tmp, f.create())
 		}
@@ -78,30 +77,6 @@ func (obj *EventManager) Setup() error {
 
 	if len(obj.chans) != len(obj.handler) {
 		panic("EventHandler setup error")
-	}
-
-	spec1 := config.BusinessConfig.OnlineDataClearTime.Second + " " + config.BusinessConfig.OnlineDataClearTime.Minute +
-		" " + config.BusinessConfig.OnlineDataClearTime.Hour + " * * *"
-	err := crontab.RegisterCrontab(spec1, func() {
-		for index := range obj.handler {
-			obj.eventChan[index] <- clearJob
-		}
-	})
-	if err != nil {
-		log.Errorf("crontab RegisterCrontab fail,err=%v", err)
-		return err
-	}
-
-	// */150 * * * * ?
-	spec2 := "*/" + cast.ToString(config.BusinessConfig.KeepAlivePeriod) + " * * * * *"
-	err = crontab.RegisterCrontab(spec2, func() {
-		for index := range obj.handler {
-			obj.eventChan[index] <- timeOut
-		}
-	})
-	if err != nil {
-		log.Errorf("crontab RegisterCrontab fail,err=%v", err)
-		return err
 	}
 	return nil
 }
@@ -122,7 +97,7 @@ func (obj *EventManager) Run() {
 						//各种处理(上线、版本变更)
 						if !h.Filter(line) {
 							//当返回false时，即被视为数据被过滤
-							common.EventLinePool.Put(line)
+							commons.EventLinePool.Put(line)
 							continue filter
 						}
 					}

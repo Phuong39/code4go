@@ -50,9 +50,9 @@ func Setup(path string) error {
 	}
 	ServerConfig = InitServer(server)
 
-	business := viper.Sub("settings.udp")
+	business := viper.Sub("settings.business")
 	if business == nil {
-		panic("No found settings.udp in the configuration")
+		panic("No found settings.business in the configuration")
 	}
 	BusinessConfig = InitBusiness(business)
 
@@ -61,5 +61,11 @@ func Setup(path string) error {
 		panic("No found settings.logger in the configuration")
 	}
 	LoggerConfig = InitLogger(logger)
+
+	database := viper.Sub("settings.database")
+	if database == nil {
+		panic("No found settings.database in the configuration")
+	}
+	DatabaseConfig = InitDatabase(database)
 	return nil
 }

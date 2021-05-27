@@ -25,3 +25,9 @@ settings:
     port: 8200
     KeepAlivePeriod: 2  #在线服务向调度服务保活的周期，单位(秒)
 
+  database:
+    # 数据库类型 mysql，sqlite3， postgres
+    driver: mysql
+    # 数据库连接字符串 mysql 缺省信息 charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+    source: root:Y8Ie52cfynY9jG@tcp(192.168.88.5:3306)/xz-images2?charset=utf8&parseTime=True&loc=Local&timeout=1000ms
+

@@ -11,6 +11,7 @@ type S2 interface{}
 func Format(name string, company S1, level S2, age int) {
 	fmt.Printf("name ＝ %s, company=%s, level=%s, age ＝ %d!\n", name, company, level, age)
 }
+
 func main() {
 	//控制实例的创建
 	inj := inject.New()

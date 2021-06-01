@@ -1,27 +1,27 @@
 package manager
 
 import (
-	"chat_server/common"
+	"commons"
 	"context"
 	"errors"
 	log "github.com/sirupsen/logrus"
 )
 
-var protocolSink []common.TransformLine
+var protocolSink []commons.TransformLine
 
 type ProtocolManager struct {
-	sink   common.Sink
+	sink   commons.Sink
 	ctx    context.Context
 	cancel context.CancelFunc
 }
 
-func (obj *ProtocolManager) SetSink(sink common.Sink) {
+func (obj *ProtocolManager) SetSink(sink commons.Sink) {
 	obj.sink = sink
 }
 
 func (obj *ProtocolManager) Line(data *[]byte) error {
 	var err error
-	var eventLine *common.EventLine
+	var eventLine *commons.EventLine
 	if eventLine, err = obj.Transform(data); err != nil {
 		log.Errorf("Transform line fail,err=%v \n", err)
 	} else if err = obj.sink.PushLine(eventLine); err != nil {
@@ -40,7 +40,7 @@ func (obj *ProtocolManager) Run() {
 }
 
 // Transform 根据协议版本转换EventLine
-func (obj *ProtocolManager) Transform(netWorkData *[]byte) (line *common.EventLine, err error) {
+func (obj *ProtocolManager) Transform(netWorkData *[]byte) (line *commons.EventLine, err error) {
 	for _, t := range protocolSink {
 		if line, err = t.Line(netWorkData); err == nil {
 			return
@@ -52,6 +52,7 @@ func (obj *ProtocolManager) Stop() {
 	obj.cancel()
 	//阻塞: 外层会等待Run退出 ，所以这里可以没有wait都可以
 }
-func (obj *ProtocolManager) Uninit() {
+
+func (obj *ProtocolManager) UnInit() {
 
 }

@@ -1,6 +1,6 @@
 package main
 
-import "chat_server/cmd"
+import "chat_connect/cmd"
 
 func main() {
 	cmd.Execute()

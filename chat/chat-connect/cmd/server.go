@@ -1,8 +1,8 @@
 package cmd
 
 import (
-	"chat_server/cmd/api"
-	"chat_server/common/global"
+	"chat_connect/cmd/api"
+	"chat_connect/common/global"
 	"errors"
 	"fmt"
 	"os"

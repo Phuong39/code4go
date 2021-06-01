@@ -1,20 +1,20 @@
 package manager
 
 import (
-	"chat_server/common"
+	"commons"
 	"context"
 	log "github.com/sirupsen/logrus"
 )
 
-var sinks []common.Sink
+var sinks []commons.Sink
 
 type SinkManager struct {
-	line   chan *common.EventLine
+	line   chan *commons.EventLine
 	ctx    context.Context
 	cancel context.CancelFunc
 }
 
-func (obj *SinkManager) PushLine(line *common.EventLine) error {
+func (obj *SinkManager) PushLine(line *commons.EventLine) error {
 	obj.line <- line
 	return nil
 }
@@ -25,7 +25,7 @@ func (obj *SinkManager) Setup() (err error) {
 			return
 		}
 	}
-	obj.line = make(chan *common.EventLine, 32)
+	obj.line = make(chan *commons.EventLine, 32)
 	obj.ctx, obj.cancel = context.WithCancel(context.Background())
 	return
 }

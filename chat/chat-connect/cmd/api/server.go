@@ -1,9 +1,9 @@
 package api
 
 import (
-	"chat_server/app"
-	"chat_server/common/config"
-	"chat_server/common/global"
+	"chat_connect/app"
+	"chat_connect/common/config"
+	"chat_connect/common/global"
 	"fmt"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -13,7 +13,7 @@ import (
 
 var (
 	configYml string
-	server    *app.ChatServer
+	server    *app.ChatConnect
 	StartCmd  = &cobra.Command{
 		Use:          "server",
 		Short:        "Start API server",
@@ -47,7 +47,7 @@ func setup() {
 	}
 
 	//2. 服务初始化
-	server = new(app.ChatServer)
+	server = new(app.ChatConnect)
 	if err := server.Setup(); err != nil {
 		log.Fatal(err)
 		return

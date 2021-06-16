@@ -1,31 +1,17 @@
-// Copyright 2020 The Ebiten Authors
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-// +build example
-
 package main
 
 import (
 	"fmt"
-	"image/color"
-	"log"
-	"math/rand"
-	"time"
-
+	"github.com/flopp/go-findfont"
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/hajimehoshi/ebiten/v2/ebitenutil"
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
+	"image/color"
+	"log"
+	"math/rand"
+	"os"
+	"strings"
+	"time"
 )
 
 const (
@@ -165,9 +151,7 @@ func (g *Game) Update() error {
 			g.snakeBody[0].Y--
 		}
 	}
-
 	g.timer++
-
 	return nil
 }
 
@@ -178,9 +162,9 @@ func (g *Game) Draw(screen *ebiten.Image) {
 	ebitenutil.DrawRect(screen, float64(g.apple.X*gridSize), float64(g.apple.Y*gridSize), gridSize, gridSize, color.RGBA{0xFF, 0x00, 0x00, 0xff})
 
 	if g.moveDirection == dirNone {
-		ebitenutil.DebugPrint(screen, fmt.Sprintf("Press up/down/left/right to start"))
+		ebitenutil.DebugPrint(screen, fmt.Sprintf("输入 上/下/左/右 来开始！"))
 	} else {
-		ebitenutil.DebugPrint(screen, fmt.Sprintf("FPS: %0.2f Level: %d Score: %d Best Score: %d", ebiten.CurrentFPS(), g.level, g.score, g.bestScore))
+		ebitenutil.DebugPrint(screen, fmt.Sprintf("FPS: %0.2f 等级: %d 分数: %d 最高分: %d", ebiten.CurrentFPS(), g.level, g.score, g.bestScore))
 	}
 }
 
@@ -199,9 +183,21 @@ func newGame() *Game {
 	return g
 }
 
+func init() {
+	fontPaths := findfont.List()
+	for _, path := range fontPaths {
+		//楷体:simkai.ttf
+		//黑体:simhei.ttf
+		if strings.Contains(path, "simhei.ttf") {
+			os.Setenv("FYNE_FONT", path)
+			break
+		}
+	}
+}
+
 func main() {
 	ebiten.SetWindowSize(screenWidth, screenHeight)
-	ebiten.SetWindowTitle("Snake (Ebiten Demo)")
+	ebiten.SetWindowTitle("贪吃蛇")
 	if err := ebiten.RunGame(newGame()); err != nil {
 		log.Fatal(err)
 	}

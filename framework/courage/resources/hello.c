@@ -1,9 +1,12 @@
+import "error.IOError"
+import "io"
+
 int main()
 {
     println("hello world!!!");
 
     int[] arr={1,2,3,4,5};
-    // for循环
+
     for(int a:arr)
     {
         println(a);

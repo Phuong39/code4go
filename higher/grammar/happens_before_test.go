@@ -10,7 +10,7 @@ import (
 /**
 Go 中定义的Happens Before保证
 
-参考文档：https://studygolang.com/articles/14129
+参考文档：https://studygolang.com/articles/14129、https://blog.csdn.net/weixin_46837673/article/details/105447500
 
 1.单线程
 	在单线程环境下，所有的表达式，按照代码中的先后顺序，具有Happens Before关系

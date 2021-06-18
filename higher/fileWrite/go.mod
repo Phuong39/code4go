@@ -1,4 +1,4 @@
-module grammar
+module fileWrite
 
 go 1.16
 

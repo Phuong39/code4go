@@ -10,7 +10,9 @@ import (
 /**
 Go 中定义的Happens Before保证
 
-参考文档：https://studygolang.com/articles/14129、https://blog.csdn.net/weixin_46837673/article/details/105447500
+参考文档：
+	https://studygolang.com/articles/14129
+	https://zhuanlan.zhihu.com/p/354782706
 
 1.单线程
 	在单线程环境下，所有的表达式，按照代码中的先后顺序，具有Happens Before关系
@@ -53,16 +55,35 @@ func TestSemaphore(t *testing.T) {
 }
 
 func TestVisible(t *testing.T) {
+	// go run -race检查报告flag读写有警告
 	var flag = true
 
 	go func() {
 		time.Sleep(2 * time.Second)
-		fmt.Println("exit!")
 		flag = false
+		fmt.Println("exit!")
 	}()
 
 	for flag {
 		fmt.Println("run!")
+	}
+}
+
+func TestChanVisible(t *testing.T) {
+	var Setup = func() <-chan bool {
+		time.Sleep(2 * time.Second)
+		c := make(chan bool, 1)
+		c <- true
+		return c
+	}
+	for {
+		select {
+		case <-Setup():
+			fmt.Println("exit!")
+			return
+		default:
+			fmt.Println("run!")
+		}
 	}
 }
 

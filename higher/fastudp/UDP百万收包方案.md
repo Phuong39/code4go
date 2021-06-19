@@ -1,6 +1,6 @@
 # UDP百万收包方案.md
 
-参考文档：https://blog.csdn.net/RA681t58CJxsgCkJ31/article/details/114957102
+参考文档：https://zhuanlan.zhihu.com/p/357902432
 
 ### 1.端口重用：SO_REUSEPORT
 
@@ -11,3 +11,5 @@
 ### 4.系统调用分离
 
 ### 5.内核读缓冲区扩大
+
+### 6.并发监听，利用多核优势

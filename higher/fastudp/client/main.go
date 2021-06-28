@@ -28,8 +28,8 @@ var sendData = []byte{1, 2, 3, 4, 5, 6, 7, 8, 9, 0}
 
 func sendJob() {
 	addr := net.UDPAddr{
-		IP:   []byte{192, 168, 74, 1},
-		Port: 8500,
+		IP:   []byte{127, 0, 0, 1},
+		Port: 8888,
 	}
 	conn, err := net.DialUDP("udp", nil, &addr)
 	if err != nil {

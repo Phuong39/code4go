@@ -1,6 +1,7 @@
 # 通道
 
 [参考文档](https://zhuanlan.zhihu.com/p/27917262)
+[参考文档](https://www.luozhiyun.com/archives/427)
 
 ### chan结构
 ````go

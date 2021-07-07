@@ -14,7 +14,7 @@ import (
 func put(key, value string) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	_, err := client.Put(ctx, key, value)
-	cancel()
+	defer cancel()
 	if err != nil {
 		panic(err)
 	}
@@ -26,7 +26,7 @@ func put(key, value string) {
 func get(key string) (string, error) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	resp, err := client.Get(ctx, key)
-	cancel()
+	defer cancel()
 	if err != nil {
 		panic(err)
 	}

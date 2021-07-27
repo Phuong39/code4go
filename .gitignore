@@ -21,3 +21,5 @@
 /.nb-gradle/
 
 *.exe
+
+*.sum

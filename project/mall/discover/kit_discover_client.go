@@ -83,7 +83,6 @@ func (consulClient *KitDiscoverClient) DeRegister(instanceId string, logger *log
 }
 
 func (consulClient *KitDiscoverClient) DiscoverServices(serviceName string, logger *log.Logger) []interface{} {
-
 	//  该服务已监控并缓存
 	instanceList, ok := consulClient.instancesMap.Load(serviceName)
 	if ok {

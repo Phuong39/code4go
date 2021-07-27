@@ -7,7 +7,7 @@ import (
 )
 
 func TestNewKitDiscoverClient(t *testing.T) {
-	discoverClient, err := NewKitDiscoverClient("127.0.0.1", 123)
+	discoverClient, err := NewKitDiscoverClient("127.0.0.1", 8500)
 	if err != nil {
 		panic(err)
 	}

@@ -1,0 +1,40 @@
+//protoc -I protocol/ protocol/user.proto --go_out=plugins=grpc:client
+
+syntax = "proto3";
+
+package client;
+
+service userApi{
+  // 我的订单
+  rpc MyOrder(MyOrderReq) returns (MyOrderReply) {}
+
+  // 我的信息
+  rpc Info(InfoReq) returns (InfoReply) {}
+}
+
+message MyOrderReq{
+  int64 user_id = 1;
+}
+
+message MyOrderReply{
+  int32 code = 1;
+  repeated Order data = 2;
+}
+
+message Order{
+  int64 order_id = 1;
+  int64 user_id = 2;
+  float amount_money = 3;
+  bool is_pay = 4;
+}
+
+message InfoReq{
+  int64 user_id = 1;
+}
+
+message InfoReply{
+  int32 code = 1;
+  int64 user_id = 2;
+  string name = 3;
+  string head_image = 4;
+}

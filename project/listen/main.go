@@ -6,28 +6,27 @@ import (
 	"google.golang.org/grpc/reflection"
 	"listen/app/controller/listen_controller"
 	"listen/app/proto/listen"
-	"listen/app/util/jaeger_service"
 	"log"
 	"net"
 	"os"
+	"utils"
 )
 
 const (
 	ServiceName     = "gRPC-Service-Listen"
 	ServiceHostPort = "0.0.0.0:9901"
-	JaegerHostPort  = "192.168.74.128:6831"
 )
 
 func main() {
 	var serviceOpts []grpc.ServerOption
 
-	tracer, _, err := jaeger_service.NewJaegerTracer(ServiceName, JaegerHostPort)
+	tracer, _, err := utils.NewJaegerTracer(ServiceName, utils.JaegerHostPort)
 	if err != nil {
 		fmt.Printf("new tracer err: %+v\n", err)
 		os.Exit(-1)
 	}
 	if tracer != nil {
-		serviceOpts = append(serviceOpts, jaeger_service.ServerOption(tracer))
+		serviceOpts = append(serviceOpts, utils.ServerTracerOption())
 	}
 
 	l, err := net.Listen("tcp", ServiceHostPort)

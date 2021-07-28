@@ -5,13 +5,15 @@ import (
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
 	"sing/app/config"
-	"sing/app/util/jaeger_trace"
+	"utils"
 )
 
 func SetUp() gin.HandlerFunc {
-
 	return func(c *gin.Context) {
-		tracer, closer := jaeger_trace.NewJaegerTracer(config.AppName, config.JaegerHostPort)
+		tracer, closer, err := utils.NewJaegerTracer(config.AppName, utils.JaegerHostPort)
+		if err != nil {
+			panic(err)
+		}
 		defer closer.Close()
 
 		var parentSpan opentracing.Span

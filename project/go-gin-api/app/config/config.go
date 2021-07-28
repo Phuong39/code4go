@@ -44,9 +44,6 @@ const (
 	// 告警开关 1=开通 -1=关闭
 	ErrorNotifyOpen = -1
 
-	// Jaeger 配置信息
-	JaegerHostPort = "192.168.74.128:6831"
-
 	// Jaeger 配置开关 1=开通 -1=关闭
 	JaegerOpen = 1
 )

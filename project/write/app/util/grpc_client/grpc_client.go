@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 	"google.golang.org/grpc"
-	"write/app/util/jaeger_service"
+	"utils"
 )
 
 func CreateServiceListenConn(ctx context.Context) *grpc.ClientConn {
@@ -12,7 +12,7 @@ func CreateServiceListenConn(ctx context.Context) *grpc.ClientConn {
 }
 
 func createGrpcClient(serviceAddress string, ctx context.Context) *grpc.ClientConn {
-	conn, err := grpc.Dial(serviceAddress, grpc.WithInsecure(), grpc.WithUnaryInterceptor(jaeger_service.ClientInterceptor(jaeger_service.Tracer, ctx)))
+	conn, err := grpc.Dial(serviceAddress, grpc.WithInsecure(), grpc.WithUnaryInterceptor(utils.ClientInterceptorLowerReaches(utils.DefTracer, ctx)))
 	if err != nil {
 		fmt.Println(serviceAddress, "grpc conn err:", err)
 	}

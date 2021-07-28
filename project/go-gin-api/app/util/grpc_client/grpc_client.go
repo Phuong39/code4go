@@ -6,11 +6,10 @@ import (
 	"github.com/gin-gonic/gin"
 	grpc_middeware "github.com/grpc-ecosystem/go-grpc-middleware"
 	"github.com/opentracing/opentracing-go"
-	"go-gin-api/app/config"
 	"go-gin-api/app/util/grpc_log"
-	"go-gin-api/app/util/jaeger_trace"
 	"google.golang.org/grpc"
 	"time"
+	"utils"
 )
 
 func CreateServiceListenConn(c *gin.Context) *grpc.ClientConn {
@@ -37,36 +36,20 @@ func createGrpcConn(serviceAddress string, c *gin.Context) *grpc.ClientConn {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Millisecond*500)
 	defer cancel()
 
-	if config.JaegerOpen == 1 {
-
-		tracer, _ := c.Get("Tracer")
-		parentSpanContext, _ := c.Get("ParentSpanContext")
-
-		conn, err = grpc.DialContext(
-			ctx,
-			serviceAddress,
-			grpc.WithInsecure(),
-			grpc.WithBlock(),
-			grpc.WithUnaryInterceptor(
-				grpc_middeware.ChainUnaryClient(
-					jaeger_trace.ClientInterceptor(tracer.(opentracing.Tracer), parentSpanContext.(opentracing.SpanContext)),
-					grpc_log.ClientInterceptor(),
-				),
+	tracer, _ := c.Get("Tracer")
+	parentSpanContext, _ := c.Get("ParentSpanContext")
+	conn, err = grpc.DialContext(
+		ctx,
+		serviceAddress,
+		grpc.WithInsecure(),
+		grpc.WithBlock(),
+		grpc.WithUnaryInterceptor(
+			grpc_middeware.ChainUnaryClient(
+				utils.ClientInterceptorWithParent(tracer.(opentracing.Tracer), parentSpanContext.(opentracing.SpanContext)),
+				grpc_log.ClientInterceptor(),
 			),
-		)
-	} else {
-		conn, err = grpc.DialContext(
-			ctx,
-			serviceAddress,
-			grpc.WithInsecure(),
-			grpc.WithBlock(),
-			grpc.WithUnaryInterceptor(
-				grpc_middeware.ChainUnaryClient(
-					grpc_log.ClientInterceptor(),
-				),
-			),
-		)
-	}
+		),
+	)
 
 	if err != nil {
 		fmt.Println(serviceAddress, "grpc conn err:", err)

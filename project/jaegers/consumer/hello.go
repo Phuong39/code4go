@@ -2,23 +2,19 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"io/ioutil"
-	"jaegers/common"
-	"net/http"
+	"time"
+	"utils"
 )
 
 func Hello(ctx *gin.Context) {
-	span, err := common.StartSpanWithHttpContext(ctx, "span_root")
-	if err != nil {
-		defer func() {
-			span.Finish()
-		}()
-	}
-	resp, err := http.Get("http://127.0.0.1:9000/hello")
+	resp1, err := utils.HttpGet(ctx, "http://127.0.0.1:9000/hello", "HTTP -> Hello")
 	if err != nil {
 		panic(err)
 	}
-	defer resp.Body.Close()
-	bytes, err := ioutil.ReadAll(resp.Body)
-	ctx.JSON(200, string(bytes))
+	resp2, err := utils.HttpGet(ctx, "http://127.0.0.1:9000/say", "HTTP -> Say")
+	if err != nil {
+		panic(err)
+	}
+	time.Sleep(50 * time.Millisecond)
+	ctx.JSON(200, string(resp1)+"-"+string(resp2))
 }

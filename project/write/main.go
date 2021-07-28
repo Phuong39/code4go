@@ -7,28 +7,28 @@ import (
 	"log"
 	"net"
 	"os"
+	"utils"
 	"write/app/controller/write_controller"
 	"write/app/proto/write"
-	"write/app/util/jaeger_service"
 )
 
 const (
 	ServiceName     = "gRPC-Service-Write"
 	ServiceHostPort = "0.0.0.0:9904"
-	JaegerHostPort  = "192.168.74.128:6831"
 )
 
 func main() {
 	var serviceOpts []grpc.ServerOption
 
-	tracer, _, err := jaeger_service.NewJaegerTracer(ServiceName, JaegerHostPort)
+	tracer, closer, err := utils.NewJaegerTracer(ServiceName, utils.JaegerHostPort)
 	if err != nil {
 		fmt.Printf("new tracer err: %+v\n", err)
 		os.Exit(-1)
 	}
 	if tracer != nil {
-		serviceOpts = append(serviceOpts, jaeger_service.ServerOption(tracer))
+		serviceOpts = append(serviceOpts, utils.ServerTracerOption())
 	}
+	defer closer.Close()
 
 	l, err := net.Listen("tcp", ServiceHostPort)
 	if err != nil {

@@ -8,8 +8,8 @@ import (
 	"io/ioutil"
 	"log"
 	"net/http"
-	"read/app/util/jaeger_service"
 	"time"
+	"utils"
 )
 
 func HttpGet(url string, ctx context.Context) (string, error) {
@@ -36,7 +36,7 @@ func HttpGet(url string, ctx context.Context) (string, error) {
 		return "", err
 	}
 
-	injectErr := jaeger_service.Tracer.Inject(span.Context(), opentracing.HTTPHeaders, opentracing.HTTPHeadersCarrier(req.Header))
+	injectErr := utils.DefTracer.Inject(span.Context(), opentracing.HTTPHeaders, opentracing.HTTPHeadersCarrier(req.Header))
 	if injectErr != nil {
 		log.Fatalf("%s: Couldn't inject headers", err)
 	}

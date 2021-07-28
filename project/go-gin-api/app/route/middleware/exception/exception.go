@@ -12,11 +12,9 @@ import (
 )
 
 func SetUp() gin.HandlerFunc {
-
 	return func(c *gin.Context) {
 		defer func() {
 			if err := recover(); err != nil {
-
 				DebugStack := ""
 				for _, v := range strings.Split(string(debug.Stack()), "\n") {
 					DebugStack += v + "<br>"

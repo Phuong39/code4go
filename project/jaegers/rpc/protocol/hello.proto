@@ -1,0 +1,18 @@
+//protoc -I rpc/protocol/ rpc/protocol/hello.proto --go_out=plugins=grpc:rpc/client
+
+syntax = "proto3";
+
+package client;
+
+service helloApi{
+  rpc SayHello (SayHelloReq) returns (SayHelloReply) {}
+}
+
+message SayHelloReq{
+  string name = 1;
+}
+
+message SayHelloReply{
+  int32 code = 1;
+  string data = 2;
+}

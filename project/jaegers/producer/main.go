@@ -2,17 +2,21 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"jaegers/common"
+	"utils"
 )
 
 func main() {
-	_, closer := common.InitJaeger("hello-producer")
+	_, closer, err := utils.NewJaegerTracer("consumer", utils.JaegerHostPort)
+	if err != nil {
+		panic(err)
+	}
 	defer closer.Close()
 
 	g := gin.Default()
-	g.Use(common.TraceGin())
+	g.Use(utils.TraceSetUp())
 	g.GET("/hello", Hello)
-	err := g.Run(":9000")
+	g.GET("/say", Say)
+	err = g.Run(":9000")
 	if err != nil {
 		return
 	}

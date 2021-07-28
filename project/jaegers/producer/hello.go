@@ -1,57 +1,25 @@
 package main
 
 import (
-	"context"
-	"fmt"
 	"github.com/gin-gonic/gin"
-	"jaegers/common"
 	"time"
+	"utils"
 )
 
-func TestDemo(req string, ctx context.Context) (reply string) {
-	span, _ := common.StartSpanWithHttpContext(ctx, "span_test_demo")
-	defer func() {
-		span.Finish()
-	}()
-	//2. 模拟耗时
-	time.Sleep(time.Second / 2)
-	//3. 返回reply
-	reply = "TestDemoReply"
-	return
-}
-
-func TestDemo2(req string, ctx context.Context) (reply string) {
-	span, _ := common.StartSpanWithHttpContext(ctx, "span_test_demo")
-	defer func() {
-		span.Finish()
-	}()
-	time.Sleep(time.Second / 2)
-	reply = "TestDemo2Reply"
-	TestDemo3(req, ctx)
-	return
-}
-
-func TestDemo3(req string, ctx context.Context) (reply string) {
-	span, _ := common.StartSpanWithHttpContext(ctx, "span_test_demo")
-	defer func() {
-		span.Finish()
-	}()
-	time.Sleep(time.Second / 2)
-	reply = "TestDemo2Reply"
-	return
-}
-
 func Hello(ctx *gin.Context) {
-	// spanContext, ok := ctx.Value(SpanContext).(opentracing.SpanContext)
-	span, err := common.StartSpanWithHttpContext(ctx, "span_root")
-	if err != nil {
-		defer func() {
-			span.Finish()
-		}()
+	span, err := utils.GetSpanWithContext(ctx, "producer Hello")
+	if err == nil {
+		defer span.Finish()
 	}
-	// span, tracerCtx := StartSpanWithContext(ctx.Request.Context(), "span_root", &opentracing.Tag{Key: "request-id", Value: uid})
-	r1 := TestDemo("Hello TestDemo", ctx)
-	r2 := TestDemo2("Hello TestDemo2", ctx)
-	fmt.Println(r1, r2)
-	ctx.JSON(200, ctx.Request.Header.Get(common.RequestId))
+	time.Sleep(50 * time.Millisecond)
+	ctx.JSON(200, "hello!")
+}
+
+func Say(ctx *gin.Context) {
+	span, err := utils.GetSpanWithContext(ctx, "producer Say")
+	if err == nil {
+		defer span.Finish()
+	}
+	time.Sleep(50 * time.Millisecond)
+	ctx.JSON(200, "say!")
 }

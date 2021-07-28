@@ -17,6 +17,9 @@ func StartSpanWithHttp(ctx *gin.Context, operation string, opts ...opentracing.S
 	header := make(map[string][]string)
 	tracer, _ := ctx.Get(TracerKey)
 	parentSpanContext, _ := ctx.Get(ParentSpanContextKey)
+	if tracer == nil || parentSpanContext == nil {
+		return nil, nil, errors.New("tracer or parentSpanContext is nil")
+	}
 	opts = append(opts,
 		opentracing.ChildOf(parentSpanContext.(opentracing.SpanContext)),
 		opentracing.Tag{Key: string(ext.Component), Value: "HTTP"},

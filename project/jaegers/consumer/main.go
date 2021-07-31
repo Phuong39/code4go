@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	utils.NewTracer("consumer", "192.168.70.1:8080")
+	utils.NewTracer("consumer", "192.168.140.128")
 	//_, closer, err := utils.NewJaegerTracer("consumer", utils.JaegerHostPort)
 	//if err != nil {
 	//	panic(err)

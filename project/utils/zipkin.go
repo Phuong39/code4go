@@ -9,9 +9,9 @@ import (
 	"log"
 )
 
-const Host = "192.168.74.128:9411"
+const Host = "192.168.140.128:9411"
 
-func NewTracer(serviceName, ip string) {
+func NewTracer(serviceName, ip string) opentracing.Tracer {
 	// set up a span reporter
 	reporter := zipkinhttp.NewReporter(fmt.Sprintf("http://%s/api/v2/spans", Host))
 	defer reporter.Close()
@@ -33,4 +33,6 @@ func NewTracer(serviceName, ip string) {
 
 	// optionally set as Global OpenTracing tracer instance
 	opentracing.SetGlobalTracer(tracer)
+
+	return tracer
 }

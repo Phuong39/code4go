@@ -9,3 +9,6 @@
 [知乎go-micro教程](https://www.zhihu.com/column/c_1290248879594655744)
 
 [go调度器](https://zhuanlan.zhihu.com/p/73374089)
+
+
+[golang修炼之路](https://www.kancloud.cn/aceld/golang/1858955)

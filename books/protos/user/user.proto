@@ -1,0 +1,18 @@
+//protoc -I user user/user.proto --go_out=plugins=grpc:user
+
+syntax = "proto3";
+
+package user_proto;
+
+service UserApi{
+  rpc Login (LoginReq) returns (LoginReply) {}
+}
+
+message LoginReq{
+  string name = 1;
+}
+
+message LoginReply{
+  int32 code = 1;
+  string data = 2;
+}

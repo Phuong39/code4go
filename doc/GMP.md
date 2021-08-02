@@ -1,6 +1,6 @@
 # GMP
 
-[参考文档](https://www.cnblogs.com/sunsky303/p/9705727.html)
+[参考文档](https://segmentfault.com/a/1190000023869478)
 
 ### GMP模型
 
